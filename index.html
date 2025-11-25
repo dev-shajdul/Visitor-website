@@ -1,0 +1,608 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visitor Registration System</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#10B981'
+                    },
+                    borderRadius: {
+                        'none': '0px',
+                        'sm': '4px',
+                        DEFAULT: '8px',
+                        'md': '12px',
+                        'lg': '16px',
+                        'xl': '20px',
+                        '2xl': '24px',
+                        '3xl': '32px',
+                        'full': '9999px',
+                        'button': '8px'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :where([class^="ri-"])::before {
+            content: "\f3c2";
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <img width="150px" height="80px" src="https://i.ibb.co.com/sdVQ1tWM/Logo.jpg">
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#" class="text-gray-700 hover:text-primary transition-colors">Dashboard</a>
+                    <a href="#" class="text-gray-700 hover:text-primary transition-colors">Visitors</a>
+                    <a href="#" class="text-gray-700 hover:text-primary transition-colors">Reports</a>
+                    <a href="#" class="text-gray-700 hover:text-primary transition-colors">Settings</a>
+                </nav>
+                <div class="flex items-center space-x-4">
+                    <button class="w-8 h-8 flex items-center justify-center text-gray-600 hover:text-primary">
+                        <i class="ri-notification-line ri-lg"></i>
+                    </button>
+                    <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+                        <i class="ri-user-line text-white"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative bg-gradient-to-br from-blue-50 to-indigo-100 py-20" style="background-image: url('https://readdy.ai/api/search-image?query=modern%20office%20building%20entrance%20with%20glass%20doors%20and%20professional%20security%20checkpoint%20area%2C%20clean%20minimalist%20design%20with%20soft%20lighting%20and%20contemporary%20architecture%2C%20welcoming%20atmosphere%20with%20digital%20screens%20and%20reception%20desk&width=1920&height=800&seq=hero001&orientation=landscape'); background-size: cover; background-position: center;">
+        <div class="absolute inset-0 bg-white/80"></div>
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-8">
+                    <div class="space-y-4">
+                        <h1 class="text-5xl font-bold text-gray-900 leading-tight">
+                            Streamline Your <span class="text-primary">Visitor Management</span>
+                        </h1>
+                        <p class="text-xl text-gray-600 leading-relaxed">
+                            Secure, efficient, and professional visitor registration system that enhances your workplace security while providing an exceptional visitor experience.
+                        </p>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button class="bg-primary text-white px-8 py-4 !rounded-button font-semibold hover:bg-blue-600 transition-colors whitespace-nowrap">
+                            Start Registration
+                        </button>
+                        <button class="border-2 border-gray-300 text-gray-700 px-8 py-4 !rounded-button font-semibold hover:border-primary hover:text-primary transition-colors whitespace-nowrap">
+                            View Demo
+                        </button>
+                    </div>
+                    <div class="flex items-center space-x-8 text-sm text-gray-600">
+                        <div class="flex items-center space-x-2">
+                            <i class="ri-shield-check-line text-secondary"></i>
+                            <span>Secure & Compliant</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <i class="ri-time-line text-secondary"></i>
+                            <span>Real-time Tracking</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <i class="ri-smartphone-line text-secondary"></i>
+                            <span>Mobile Friendly</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:block hidden">
+                    <img src="https://readdy.ai/api/search-image?query=professional%20tablet%20device%20displaying%20visitor%20registration%20interface%20with%20clean%20modern%20UI%20design%2C%20digital%20check-in%20screen%20with%20form%20fields%20and%20buttons%2C%20sleek%20technology%20in%20office%20environment&width=600&height=500&seq=hero002&orientation=portrait" alt="Visitor Registration Interface" class="w-full h-auto rounded-2xl shadow-2xl object-top">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Dashboard -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- Quick Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            <div class="bg-white rounded-xl p-6 shadow-sm border">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Today's Visitors</p>
+                        <p class="text-3xl font-bold text-gray-900">127</p>
+                    </div>
+                    <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                        <i class="ri-user-add-line ri-xl text-blue-600"></i>
+                    </div>
+                </div>
+                <div class="mt-4 flex items-center text-sm">
+                    <i class="ri-arrow-up-line text-secondary mr-1"></i>
+                    <span class="text-secondary font-medium">12%</span>
+                    <span class="text-gray-600 ml-2">vs yesterday</span>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl p-6 shadow-sm border">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Currently Inside</p>
+                        <p class="text-3xl font-bold text-gray-900">43</p>
+                    </div>
+                    <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+                        <i class="ri-user-location-line ri-xl text-green-600"></i>
+                    </div>
+                </div>
+                <div class="mt-4 flex items-center text-sm">
+                    <i class="ri-time-line text-gray-400 mr-1"></i>
+                    <span class="text-gray-600">Average stay: 2.5 hours</span>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl p-6 shadow-sm border">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Pending Approvals</p>
+                        <p class="text-3xl font-bold text-gray-900">8</p>
+                    </div>
+                    <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center">
+                        <i class="ri-time-line ri-xl text-orange-600"></i>
+                    </div>
+                </div>
+                <div class="mt-4 flex items-center text-sm">
+                    <i class="ri-alert-line text-orange-500 mr-1"></i>
+                    <span class="text-orange-600 font-medium">Requires attention</span>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl p-6 shadow-sm border">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-600">Security Alerts</p>
+                        <p class="text-3xl font-bold text-gray-900">2</p>
+                    </div>
+                    <div class="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center">
+                        <i class="ri-shield-line ri-xl text-red-600"></i>
+                    </div>
+                </div>
+                <div class="mt-4 flex items-center text-sm">
+                    <i class="ri-error-warning-line text-red-500 mr-1"></i>
+                    <span class="text-red-600 font-medium">Active incidents</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Grid -->
+        <div class="grid lg:grid-cols-3 gap-8">
+            <!-- Visitor Registration Form -->
+            <div class="lg:col-span-2 bg-white rounded-xl shadow-sm border">
+                <div class="p-6 border-b">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-xl font-semibold text-gray-900">Visitor Registration</h2>
+                        <div class="flex items-center space-x-2">
+                            <button class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors !rounded-button whitespace-nowrap">
+                                Scan QR Code
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="p-6">
+                    <form class="space-y-6">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+                                <input type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-sm" placeholder="Enter first name">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+                                <input type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-sm" placeholder="Enter last name">
+                            </div>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                                <input type="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-sm" placeholder="visitor@company.com">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                                <input type="tel" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-sm" placeholder="+1 (555) 123-4567">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Company</label>
+                            <input type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-sm" placeholder="Company name">
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Host Employee</label>
+                                <div class="relative">
+                                    <button type="button" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-sm text-left flex items-center justify-between bg-white">
+                                        <span class="text-gray-500">Select host employee</span>
+                                        <i class="ri-arrow-down-s-line text-gray-400"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Visit Purpose</label>
+                                <div class="relative">
+                                    <button type="button" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-sm text-left flex items-center justify-between bg-white">
+                                        <span class="text-gray-500">Select purpose</span>
+                                        <i class="ri-arrow-down-s-line text-gray-400"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Additional Notes</label>
+                            <textarea class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-sm" rows="3" placeholder="Any additional information..."></textarea>
+                        </div>
+
+                        <div class="flex items-center space-x-3">
+                            <div class="relative">
+                                <input type="checkbox" id="terms" class="sr-only">
+                                <div class="w-5 h-5 border-2 border-gray-300 rounded cursor-pointer flex items-center justify-center checkbox-custom">
+                                    <i class="ri-check-line text-white text-sm hidden check-icon"></i>
+                                </div>
+                            </div>
+                            <label for="terms" class="text-sm text-gray-600 cursor-pointer">
+                                I agree to the <a href="#" class="text-primary hover:underline">terms and conditions</a> and <a href="#" class="text-primary hover:underline">privacy policy</a>
+                            </label>
+                        </div>
+
+                        <div class="flex space-x-4 pt-4">
+                            <button type="submit" class="flex-1 bg-primary text-white py-3 px-6 !rounded-button font-semibold hover:bg-blue-600 transition-colors whitespace-nowrap">
+                                Check In Visitor
+                            </button>
+                            <button type="button" class="px-6 py-3 border border-gray-300 text-gray-700 !rounded-button font-semibold hover:border-primary hover:text-primary transition-colors whitespace-nowrap">
+                                Clear Form
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Recent Visitors & Quick Actions -->
+            <div class="space-y-8">
+                <!-- Quick Check-out -->
+                <div class="bg-white rounded-xl shadow-sm border">
+                    <div class="p-6 border-b">
+                        <h3 class="text-lg font-semibold text-gray-900">Quick Check-out</h3>
+                    </div>
+                    <div class="p-6">
+                        <div class="space-y-4">
+                            <div class="relative">
+                                <input type="text" class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent text-sm" placeholder="Search visitor name or badge ID">
+                                <div class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 flex items-center justify-center">
+                                    <i class="ri-search-line text-gray-400"></i>
+                                </div>
+                            </div>
+                            <button class="w-full bg-secondary text-white py-3 px-4 !rounded-button font-semibold hover:bg-green-600 transition-colors whitespace-nowrap">
+                                Process Check-out
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Visitors -->
+                <div class="bg-white rounded-xl shadow-sm border">
+                    <div class="p-6 border-b">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-lg font-semibold text-gray-900">Recent Visitors</h3>
+                            <button class="text-sm text-primary hover:underline">View All</button>
+                        </div>
+                    </div>
+                    <div class="divide-y">
+                        <div class="p-4 hover:bg-gray-50 transition-colors">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                                    <span class="text-sm font-medium text-blue-600">JS</span>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm font-medium text-gray-900 truncate">John Smith</p>
+                                    <p class="text-xs text-gray-500">TechCorp Inc.</p>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                        Active
+                                    </span>
+                                    <button class="w-6 h-6 flex items-center justify-center text-gray-400 hover:text-gray-600">
+                                        <i class="ri-more-2-line"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-4 hover:bg-gray-50 transition-colors">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
+                                    <span class="text-sm font-medium text-purple-600">MJ</span>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm font-medium text-gray-900 truncate">Maria Johnson</p>
+                                    <p class="text-xs text-gray-500">Design Studio</p>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                                        Left
+                                    </span>
+                                    <button class="w-6 h-6 flex items-center justify-center text-gray-400 hover:text-gray-600">
+                                        <i class="ri-more-2-line"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-4 hover:bg-gray-50 transition-colors">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
+                                    <span class="text-sm font-medium text-orange-600">RW</span>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm font-medium text-gray-900 truncate">Robert Wilson</p>
+                                    <p class="text-xs text-gray-500">Global Solutions</p>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                        Active
+                                    </span>
+                                    <button class="w-6 h-6 flex items-center justify-center text-gray-400 hover:text-gray-600">
+                                        <i class="ri-more-2-line"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-4 hover:bg-gray-50 transition-colors">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-pink-100 rounded-full flex items-center justify-center">
+                                    <span class="text-sm font-medium text-pink-600">LD</span>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm font-medium text-gray-900 truncate">Lisa Davis</p>
+                                    <p class="text-xs text-gray-500">Marketing Pro</p>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                                        Pending
+                                    </span>
+                                    <button class="w-6 h-6 flex items-center justify-center text-gray-400 hover:text-gray-600">
+                                        <i class="ri-more-2-line"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional Features Section -->
+        <div class="mt-16 grid lg:grid-cols-2 gap-12 items-center">
+            <div class="space-y-8">
+                <div class="space-y-4">
+                    <h2 class="text-3xl font-bold text-gray-900">
+                        Advanced Security Features
+                    </h2>
+                    <p class="text-lg text-gray-600">
+                        Our comprehensive visitor management system includes enterprise-grade security features to protect your workplace and streamline operations.
+                    </p>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <i class="ri-shield-check-line text-blue-600"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-900 mb-2">Identity Verification</h3>
+                            <p class="text-gray-600">Automated ID scanning and verification with photo capture for enhanced security protocols.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start space-x-4">
+                        <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <i class="ri-notification-badge-line text-green-600"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-900 mb-2">Real-time Notifications</h3>
+                            <p class="text-gray-600">Instant alerts to hosts when visitors arrive, with SMS and email notification options.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start space-x-4">
+                        <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <i class="ri-file-list-line text-purple-600"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-900 mb-2">Compliance Reporting</h3>
+                            <p class="text-gray-600">Detailed audit trails and compliance reports for security and regulatory requirements.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start space-x-4">
+                        <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <i class="ri-qr-code-line text-orange-600"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-900 mb-2">Digital Badge System</h3>
+                            <p class="text-gray-600">QR code-based digital badges for contactless check-in and seamless visitor tracking.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative">
+                <img src="https://readdy.ai/api/search-image?query=modern%20office%20security%20dashboard%20interface%20on%20large%20monitor%20display%20showing%20visitor%20management%20system%20with%20real-time%20data%20charts%20and%20visitor%20photos%2C%20professional%20workplace%20technology%20setup%20with%20clean%20design&width=600&height=500&seq=features001&orientation=portrait" alt="Security Dashboard" class="w-full h-auto rounded-2xl shadow-xl object-top">
+                <div class="absolute -bottom-6 -left-6 bg-white rounded-xl p-4 shadow-lg border">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                            <i class="ri-check-line text-green-600"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-semibold text-gray-900">System Active</p>
+                            <p class="text-xs text-gray-500">All security protocols enabled</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="space-y-4">
+                     <img width="150px" height="80px" src="https://i.ibb.co.com/sdVQ1tWM/Logo.jpg">
+                    <p class="text-gray-600">Professional visitor management system for modern workplaces.</p>
+                    <div class="flex space-x-4">
+                        <button class="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-primary">
+                            <i class="ri-twitter-line"></i>
+                        </button>
+                        <button class="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-primary">
+                            <i class="ri-linkedin-line"></i>
+                        </button>
+                        <button class="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-primary">
+                            <i class="ri-facebook-line"></i>
+                        </button>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-900 mb-4">Product</h4>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li><a href="#" class="hover:text-primary">Features</a></li>
+                        <li><a href="#" class="hover:text-primary">Pricing</a></li>
+                        <li><a href="#" class="hover:text-primary">Security</a></li>
+                        <li><a href="#" class="hover:text-primary">Integrations</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-900 mb-4">Support</h4>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li><a href="#" class="hover:text-primary">Documentation</a></li>
+                        <li><a href="#" class="hover:text-primary">Help Center</a></li>
+                        <li><a href="#" class="hover:text-primary">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-primary">Status</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-gray-900 mb-4">Company</h4>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li><a href="#" class="hover:text-primary">About</a></li>
+                        <li><a href="#" class="hover:text-primary">Blog</a></li>
+                        <li><a href="#" class="hover:text-primary">Careers</a></li>
+                        <li><a href="#" class="hover:text-primary">Privacy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t mt-12 pt-8 text-center text-sm text-gray-600">
+                <p>&copy; 2024 SecureEntry. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script id="checkbox-functionality">
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkboxes = document.querySelectorAll('.checkbox-custom');
+            
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('click', function() {
+                    const input = this.previousElementSibling;
+                    const checkIcon = this.querySelector('.check-icon');
+                    
+                    input.checked = !input.checked;
+                    
+                    if (input.checked) {
+                        this.classList.add('bg-primary', 'border-primary');
+                        this.classList.remove('border-gray-300');
+                        checkIcon.classList.remove('hidden');
+                    } else {
+                        this.classList.remove('bg-primary', 'border-primary');
+                        this.classList.add('border-gray-300');
+                        checkIcon.classList.add('hidden');
+                    }
+                });
+            });
+        });
+    </script>
+
+    <script id="form-interactions">
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropdownButtons = document.querySelectorAll('button[type="button"]');
+            
+            dropdownButtons.forEach(button => {
+                if (button.querySelector('.ri-arrow-down-s-line')) {
+                    button.addEventListener('click', function() {
+                        const icon = this.querySelector('.ri-arrow-down-s-line');
+                        icon.classList.toggle('rotate-180');
+                        icon.style.transform = icon.classList.contains('rotate-180') ? 'rotate(180deg)' : 'rotate(0deg)';
+                        icon.style.transition = 'transform 0.2s ease';
+                    });
+                }
+            });
+        });
+    </script>
+
+    <script id="notification-system">
+        document.addEventListener('DOMContentLoaded', function() {
+            const submitButton = document.querySelector('button[type="submit"]');
+            
+            if (submitButton) {
+                submitButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const notification = document.createElement('div');
+                    notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg z-50 transform translate-x-full transition-transform duration-300';
+                    notification.innerHTML = `
+                        <div class="flex items-center space-x-2">
+                            <i class="ri-check-circle-line"></i>
+                            <span>Visitor successfully checked in!</span>
+                        </div>
+                    `;
+                    
+                    document.body.appendChild(notification);
+                    
+                    setTimeout(() => {
+                        notification.classList.remove('translate-x-full');
+                    }, 100);
+                    
+                    setTimeout(() => {
+                        notification.classList.add('translate-x-full');
+                        setTimeout(() => {
+                            document.body.removeChild(notification);
+                        }, 300);
+                    }, 3000);
+                });
+            }
+        });
+    </script>
+<script>
+    !function (t, e) { var o, n, p, r; e.__SV || (window.posthog = e, e._i = [], e.init = function (i, s, a) { function g(t, e) { var o = e.split("."); 2 == o.length && (t = t[o[0]], e = o[1]), t[e] = function () { t.push([e].concat(Array.prototype.slice.call(arguments, 0))) } } (p = t.createElement("script")).type = "text/javascript", p.crossOrigin = "anonymous", p.async = !0, p.src = s.api_host.replace(".i.posthog.com", "-assets.i.posthog.com") + "/static/array.js", (r = t.getElementsByTagName("script")[0]).parentNode.insertBefore(p, r); var u = e; for (void 0 !== a ? u = e[a] = [] : a = "posthog", u.people = u.people || [], u.toString = function (t) { var e = "posthog"; return "posthog" !== a && (e += "." + a), t || (e += " (stub)"), e }, u.people.toString = function () { return u.toString(1) + ".people (stub)" }, o = "init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "), n = 0; n < o.length; n++)g(u, o[n]); e._i.push([i, s, a]) }, e.__SV = 1) }(document, window.posthog || []);
+    posthog.init('phc_t9tkQZJiyi2ps9zUYm8TDsL6qXo4YmZx0Ot5rBlAlEd', {
+        api_host: 'https://us.i.posthog.com',
+        autocapture: false,
+        capture_pageview: false,
+        capture_pageleave: false,
+        capture_performance: {
+            web_vitals: false,
+        },
+        rageclick: false,
+    })
+    window.shareKey = 'OcUxJ7C8Bm1nszF3toy5HQ';
+    window.host = 'readdy.ai';
+</script>
+
+</html>
